@@ -11,14 +11,14 @@ import java.util.ArrayList;
 
 public class projectDB {
 	public static final String URL = "jdbc:oracle:thin:@localhost:1521:orcl";
-	public static final String USER_NAME ="lol";
-	public static final String USER_PASSWD ="lol";
+	public static final String USER_NAME ="lol"; //lol
+	public static final String USER_PASSWD ="lol"; //lol
 	
 	public static void main(String[] args) {
 		Start s = new Start();
-		s.Init(URL, USER_NAME, USER_PASSWD); // ÃÊ±âÈ­
+		s.Init(URL, USER_NAME, USER_PASSWD); // ì´ˆê¸°í™”
 		
-		while (true) { // ¹Ýº¹ÇÏ¸ç ¸Þ´º ¼öÇà
+		while (true) { // ë°˜ë³µí•˜ë©° ë©”ë‰´ ìˆ˜í–‰
 			s.Update();
 		}
 	}

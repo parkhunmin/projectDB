@@ -26,6 +26,7 @@ public class Start {
 		_URL = url;
 		_USER_NAME = name;
 		_USER_PASSWD = passwd;
+		_user = new User();
 		
 		try {
 			// Load a JDBC driver for Oracle DBMS
@@ -52,12 +53,12 @@ public class Start {
 	void Update()
 	{
 		System.out.println("----------------------------------------------");
-		System.out.println("¿øÇÏ´Â ¸Ş´º¸¦ ¼±ÅÃÇÏ¼¼¿ä!");
+		System.out.println("ì›í•˜ëŠ” ë©”ë‰´ë¥¼ ì„ íƒí•˜ì„¸ìš”!");
 		
 		if (LOG == true)
-			System.out.println("1) ´ñ±ÛÀÛ¼º 2) ÆòÁ¡ÁÖ±â 3) ½ºÅ² °Ë»ö 4) Ã¨ÇÇ¾ğ °Ë»ö 5) ¼¼°è°ü °Ë»ö 6) ·Î±×¾Æ¿ô");
+			System.out.println("1) ëŒ“ê¸€ì‘ì„± 2) í‰ì ì£¼ê¸° 3) ìŠ¤í‚¨ ê²€ìƒ‰ 4) ì±”í”¼ì–¸ ê²€ìƒ‰ 5) ì„¸ê³„ê´€ ê²€ìƒ‰ 6) í‰ê°€í•œ ìŠ¤í‚¨ ëª©ë¡ 7) ë¡œê·¸ì•„ì›ƒ");
 		else
-			System.out.println("1) È¸¿ø°¡ÀÔ 2) ·Î±×ÀÎ 3) ½ºÅ² °Ë»ö 4) Ã¨ÇÇ¾ğ °Ë»ö 5) ¼¼°è°ü °Ë»ö");
+			System.out.println("1) íšŒì›ê°€ì… 2) ë¡œê·¸ì¸ 3) ìŠ¤í‚¨ ê²€ìƒ‰ 4) ì±”í”¼ì–¸ ê²€ìƒ‰ 5) ì„¸ê³„ê´€ ê²€ìƒ‰");
 
 		System.out.println("----------------------------------------------");
 		System.out.print(">");
@@ -70,19 +71,17 @@ public class Start {
 		switch(num)
 		{
 		case 1: {
-			_user = new User();
 			_user.Init(_URL, _USER_NAME, _USER_PASSWD);
 			if (LOG == false) {
-				_user.create_User(); // È¸¿ø°¡ÀÔ
+				_user.create_User(); // íšŒì›ê°€ì…
 			}
 			else {
-				_user.create_comment(); // ´ñ±ÛÀÛ¼º
+				_user.create_comment(); // ëŒ“ê¸€ì‘ì„±
 			}
 			
 			break;
 		}
 		case 2: {
-			_user = new User();
 			_user.Init(_URL, _USER_NAME, _USER_PASSWD);
 			if (LOG == false) {
 				LOG = _user.Login();
@@ -112,9 +111,14 @@ public class Start {
 			break;
 		}
 		case 6: {
+			_user.Init(_URL, _USER_NAME, _USER_PASSWD);
+			_user.skinList();
+			break;
+		}
+		case 7: {
 			if (LOG) {
 				LOG = false;
-				System.out.println("·Î±×¾Æ¿ô");
+				System.out.println("ë¡œê·¸ì•„ì›ƒ");
 			}
 			break;
 		}

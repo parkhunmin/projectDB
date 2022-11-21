@@ -18,7 +18,7 @@ public class Champion extends Start {
 		Scanner sc = new Scanner(System.in);
 
 		String name;
-		System.out.println("°Ë»öÇÏ°í ½ÍÀº Ã¨ÇÇ¾ğÀÇ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä.");
+		System.out.println("ê²€ìƒ‰í•˜ê³  ì‹¶ì€ ì±”í”¼ì–¸ì˜ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”.");
 		name = sc.next();
 		
 		try {

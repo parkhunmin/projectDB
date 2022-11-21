@@ -18,7 +18,7 @@ public class Universe extends Start {
 		Scanner sc = new Scanner(System.in);
 
 		String name;
-		System.out.println("°Ë»öÇÏ°í ½ÍÀº ¼¼°è°üÀÇ ÀÌ¸§À» ÀÔ·ÂÇÏ¼¼¿ä.");
+		System.out.println("ê²€ìƒ‰í•˜ê³  ì‹¶ì€ ì„¸ê³„ê´€ì˜ ì´ë¦„ì„ ì…ë ¥í•˜ì„¸ìš”.");
 		name = sc.next();
 		
 		try {
@@ -29,6 +29,29 @@ public class Universe extends Start {
 		}catch(SQLException ex2) {
 			System.err.println("sql error = " + ex2.getMessage());
 			System.exit(1);
+		}
+		//ì¿¼ë¦¬ ì‹œì‘
+		try {
+			// Q1: Complete your query.
+			String sql = "SELECT NAME, Lore \r\n"
+					+ "FROM SKIN_UNIVERSE\r\n"
+					+ "WHERE NAME=?";//					+ "WHERE NAME = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, name);
+			rs = ps.executeQuery();
+			System.out.println("<< query 1 result >>");
+			System.out.println("UNIVERSE_NAME | LORE");
+			System.out.println("------------------------------");
+			while(rs.next()) {
+				// Fill out your code
+				String NAME = rs.getString(1);
+				String Lore = rs.getString(2);
+				System.out.println(NAME + " | " + Lore);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 	}
