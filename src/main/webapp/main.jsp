@@ -20,11 +20,23 @@
 		<div>
 			<img id="logo" src="./resources/img/project_db_logo.png">
 		</div>
+		<!-- 검색창 -->
+		
 	    <div class="container-fluid h-50 w-75">
-			<div class="row justify-content-center align-items-center">
-				<div class="col-12">
+	    
+			<div class="row justify-content-center align-items-center">			
+				<div class="col-1.5">
+					<select class="form-control">
+					  	<option value="스킨" selected>스킨</option>
+					  	<option value="챔피언">챔피언</option>
+					  	<option value="유니버스">유니버스</option>
+					</select>
+				</div>
+				<div class="col-10"><!-- 원래는 col-12임. 합이 12가 되도록 해야돼서 11로 변경 -->
 					<form id="searchWindow" action="/noxikaGG/search" method="GET" onclick="clickShowing('log')">
+							
 						<div class="embed-submit-field">
+													
 							<input type="text" placeholder="스킨을 검색하세요!" name="title">
 							<button type="submit">검색!</button>
 						</div>
