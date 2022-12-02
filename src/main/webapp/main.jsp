@@ -11,22 +11,40 @@
 	
 	<script type="text/javascript"> 
 	//수정 필요함.
+	//셀렉트 값이 변하면 사라지도록
+	/*
+	$(function (){
+		$("#search_type_option").change(function(){
+			$("#detailed_search_skin").hide();
+			$("#detailed_search_champion").hide();
+			$("#detailed_search_universe").hide();
+		});
+	)};
+*/
+	//
 			$(function (){
+				//얘가 작동을 안함
+				$("#search_type").change(function(){
+					$("#detailed_search_skin").hide();
+					$("#detailed_search_champion").hide();
+					$("#detailed_search_universe").hide();
+				});
+				
 				$("#detailed_search_button").click(function (){
 					if($("#search_type option:selected").val()=="스킨"){
 						$("#detailed_search_skin").toggle();
-						$("#detailed_search_champion").hide()
-						$("#detailed_search_universe").hide()
+						//$("#detailed_search_champion").hide()
+						//$("#detailed_search_universe").hide()
 					}
 					else if($("#search_type option:selected").val()=="챔피언"){
 						$("#detailed_search_champion").toggle();
-						$("#detailed_search_skin").hide()
-						$("#detailed_search_universe").hide()
+						//$("#detailed_search_skin").hide()
+						//$("#detailed_search_universe").hide()
 					}
 					else if($("#search_type option:selected").val()=="유니버스"){
 						$("#detailed_search_universe").toggle();
-						$("#detailed_search_champion").hide()
-						$("#detailed_search_skin").hide()
+						//$("#detailed_search_champion").hide()
+						//$("#detailed_search_skin").hide()
 					}
 			  	
 			  });
@@ -104,8 +122,11 @@
 							등급
 							<select id="search_type" class="form-control">
 							  	<option value="전체" selected>==전체==</option>
-							  	<option value="챔피언">전설</option>
-							  	<option value="유니버스">유니버스</option>
+							  	<option value="Regular">Regular</option>
+							  	<option value="Epic">Epic</option>
+							  	<option value="Epic">Epic</option>
+							  	<option value="Mythic">Mythic</option>
+							  	<option value="Legendary">Legendary</option>
 							</select>
 						</div>
 						<div class="col">
@@ -118,7 +139,7 @@
 						</div>
 						<div class="col">
 							이펙트
-							<select id="chroma" class="form-control">
+							<select id="effect" class="form-control">
 							  	<option value="전체" selected>==전체==</option>
 							  	<option value="TRUE">TRUE</option>
 							  	<option value="FALSE">FALSE</option>
@@ -126,7 +147,7 @@
 						</div>
 						<div class="col">
 							애니메이션
-							<select id="chroma" class="form-control">
+							<select id="animation" class="form-control">
 							  	<option value="전체" selected>==전체==</option>
 							  	<option value="TRUE">TRUE</option>
 							  	<option value="FALSE">FALSE</option>
@@ -134,10 +155,13 @@
 						</div>
 						<div class="col">
 							평점
-							<select id="chroma" class="form-control">
+							<select id="rating" class="form-control">
 							  	<option value="전체" selected>==전체==</option>
-							  	<option value="TRUE">TRUE</option>
-							  	<option value="FALSE">FALSE</option>
+							  	<option value="5">★★★★★</option>
+							  	<option value="4">★★★★</option>
+							  	<option value="3">★★★</option>
+							  	<option value="2">★★</option>
+							  	<option value="1">★</option>
 							</select>
 						</div>
 						
@@ -166,13 +190,13 @@
 						<div class="col">클래스
 							<select class="form-control">
 								<option value="전체" selected>==전체==</option>
-							  	<option value="스킨">Fighter</option>
-							  	<option value="챔피언">Slayer</option>
-							  	<option value="유니버스">Controller</option>
-							  	<option value="유니버스">Tank</option>
-							  	<option value="유니버스">Mage</option>
-							  	<option value="유니버스">Marksman</option>
-							  	<option value="유니버스">Specialist</option>
+							  	<option value="Fighter">Fighter</option>
+							  	<option value="Slayer">Slayer</option>
+							  	<option value="Controller">Controller</option>
+							  	<option value="Tank">Tank</option>
+							  	<option value="Mage">Mage</option>
+							  	<option value="Marksman">Marksman</option>
+							  	<option value="Specialist">Specialist</option>
 							</select>
 						</div>
 						<div class="col">소속
