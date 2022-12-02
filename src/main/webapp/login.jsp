@@ -7,7 +7,7 @@
 <head>
 	<meta charset="EUC-KR">
 	<link rel="stylesheet" href="resources/css/bootstrap.css?after">
-	<title>PROJECT DB</title>
+	<title>PROJECT DB 로그인</title>
 </head>
 <body>
 		<nav class="navbar sticky-top  navbar-dark bg-dark">
