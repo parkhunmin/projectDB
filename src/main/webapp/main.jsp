@@ -57,7 +57,7 @@
   		<a class="navbar-brand" href="main.jsp" >Project DB</a>
   		<div style="display:inline-block">
    				<button type="button" class="btn btn-primary" onclick="location='login.jsp'"> 로그인</button>
-   				<button type="button" class="btn btn-light"> 회원가입</button>
+   				<button type="button" class="btn btn-light" onclick="location='make_account.jsp'"> 회원가입</button>
    		</div>
 	</nav>
 	<div class="container-fluid" style="height: 100vh;">
@@ -90,13 +90,16 @@
 			<div class="row justify-content-center align-items-center">			
 				<div class="col-1.5">
 					<button id="detailed_search_button" type="button" class="btn btn-light">상세검색</button>
-					<!--  토글스위치 써도 좋을듯
+					<!--  토글스위치 써도 좋을듯 일단 여기 css파일로는 안됨
 					<div class="form-check form-switch">
 					  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
 					  <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
 					</div>-->
+
 				</div>
-				<div class="col-10">
+				<br></br>
+				<br></br>
+				<div class="col-10">				
 					<div class="row" id="detailed_search_skin" style="display: none">
 						 <div class="col">
 						 	출시연도
