@@ -29,3 +29,7 @@ https://www.everdevel.com/HTML/input-attr-autocomplete/
 
 
 https://sundries-in-myidea.tistory.com/41
+
++추가적으로 구현하면 좋을 것 같은 것
+- 동시성 제어...
+- 검색창 자동완성 기능
