@@ -33,6 +33,8 @@
 	conn=DriverManager.getConnection(url,user,pass);
 	%>
 	<!-- 정보 받아오기 -->
+	<div>
+	
 	<%
 		//스킨, 챔피언, 유니버스 셀렉트 결과 
 		String search_type=request.getParameter("search_type");
@@ -91,7 +93,9 @@
 			pstmt=conn.prepareStatement(query);
 			//pstmt.setString(1, "%"+search_text+"%");
 			rs=pstmt.executeQuery();
-			out.println("<table border=\"1\">");
+			//out.println("<table border=\"1\">");
+			out.println("<table class=\"table\">");
+
 			ResultSetMetaData rsmd=rs.getMetaData();
 			int cnt=rsmd.getColumnCount();
 			for(int i=1;i<=cnt;i++){
@@ -99,7 +103,7 @@
 			}
 			while(rs.next()){
 				out.println("<tr>");
-				out.println("<td>"+rs.getString(1)+"</td>");
+				out.println("<td><b><font color='teal'>"+rs.getString(1)+"</font></b></td>");
 				out.println("<td>"+rs.getInt(2)+"</td>");
 				out.println("<td>"+rs.getString(3)+"</td>");
 				out.println("<td>"+rs.getString(4)+"</td>");
@@ -144,7 +148,7 @@
 			pstmt=conn.prepareStatement(query);
 			//pstmt.setString(1, "%"+search_text+"%");
 			rs=pstmt.executeQuery();
-			out.println("<table border=\"1\">");
+			out.println("<table class=\"table\">");
 			ResultSetMetaData rsmd=rs.getMetaData();
 			int cnt=rsmd.getColumnCount();
 			for(int i=1;i<=cnt;i++){
@@ -152,7 +156,7 @@
 			}
 			while(rs.next()){
 				out.println("<tr>");
-				out.println("<td>"+rs.getString(1)+"</td>");
+				out.println("<td><b><font color='teal'>"+rs.getString(1)+"</font></b></td>");
 				out.println("<td>"+rs.getString(2)+"</td>");
 				out.println("<td>"+rs.getString(3)+"</td>");
 				out.println("<td>"+rs.getString(4)+"</td>");
@@ -171,7 +175,7 @@
 			pstmt=conn.prepareStatement(query);
 			pstmt.setString(1, "%"+search_text+"%");
 			rs=pstmt.executeQuery();
-			out.println("<table border=\"1\">");
+			out.println("<table class=\"table\">");
 			ResultSetMetaData rsmd=rs.getMetaData();
 			int cnt=rsmd.getColumnCount();
 			for(int i=1;i<=cnt;i++){
@@ -179,7 +183,7 @@
 			}
 			while(rs.next()){
 				out.println("<tr>");
-				out.println("<td>"+rs.getString(1)+"</td>");
+				out.println("<td><b><font color='teal'>"+rs.getString(1)+"</font></b></td>");
 				out.println("<td>"+rs.getString(2)+"</td>");
 				out.println("</tr>");				
 			}
@@ -187,8 +191,8 @@
 			rs.close();
 			pstmt.close();
 		}
-		
-		
 	%>
+
+	</div>
 </body>
 </html>
