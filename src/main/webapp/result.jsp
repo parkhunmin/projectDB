@@ -71,7 +71,7 @@
 				query=query+"AND s.chroma="+"'"+chroma+"' ";
 			}
 			
-			/*
+			
 			if (!effect.equals("all")){ //문제-결과가 안뜨는 에러 발생
 				query=query+"AND sk.Effects="+"'"+effect+"' ";
 			}
@@ -82,7 +82,7 @@
 			if (!animation.equals("all")){//문제-결과가 안뜨는 에러 발생
 				query=query+"AND sk.animations="+"'"+animation+"' ";
 			}
-			*/
+			
 			//
 			query=query
 					+"GROUP BY S.Skin_name, Price, Launch_date, Chroma , Kind, Champ_name, Uni_name, Effects, Animations "

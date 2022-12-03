@@ -124,7 +124,7 @@
 						<div class="col">
 							이펙트
 							<select name="effect" id="effect" class="form-control">
-							  	<option value="전체" selected>==전체==</option>
+							  	<option value="all" selected>==전체==</option>
 							  	<option value="True">TRUE</option>
 							  	<option value="False">FALSE</option>
 							</select>
@@ -132,7 +132,7 @@
 						<div class="col">
 							애니메이션
 							<select name="animation" id="animation" class="form-control">
-							  	<option value="전체" selected>==전체==</option>
+							  	<option value="all" selected>==전체==</option>
 							  	<option value="True">TRUE</option>
 							  	<option value="False">FALSE</option>
 							</select>
@@ -140,7 +140,7 @@
 						<div class="col">
 							평점
 							<select name="rating" id="rating" class="form-control">
-							  	<option value="전체" selected>==전체==</option>
+							  	<option value="all" selected>==전체==</option>
 							  	<option value="5">★★★★★</option>
 							  	<option value="4">★★★★</option>
 							  	<option value="3">★★★</option>
