@@ -8,22 +8,10 @@
 	
 	<title>PROJECT DB</title>
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	
+
 	<script type="text/javascript"> 
-	//수정 필요함.
-	//셀렉트 값이 변하면 사라지도록
-	/*
-	$(function (){
-		$("#search_type_option").change(function(){
-			$("#detailed_search_skin").hide();
-			$("#detailed_search_champion").hide();
-			$("#detailed_search_universe").hide();
-		});
-	)};
-*/
-	//
+
 			$(function (){
-				//얘가 작동을 안함
 				$("#search_type").change(function(){
 					$("#detailed_search_skin").hide();
 					$("#detailed_search_champion").hide();
@@ -31,20 +19,14 @@
 				});
 				
 				$("#detailed_search_button").click(function (){
-					if($("#search_type option:selected").val()=="스킨"){
+					if($("#search_type option:selected").val()=="skin"){
 						$("#detailed_search_skin").toggle();
-						//$("#detailed_search_champion").hide()
-						//$("#detailed_search_universe").hide()
 					}
-					else if($("#search_type option:selected").val()=="챔피언"){
+					else if($("#search_type option:selected").val()=="champion"){
 						$("#detailed_search_champion").toggle();
-						//$("#detailed_search_skin").hide()
-						//$("#detailed_search_universe").hide()
 					}
-					else if($("#search_type option:selected").val()=="유니버스"){
+					else if($("#search_type option:selected").val()=="universe"){
 						$("#detailed_search_universe").toggle();
-						//$("#detailed_search_champion").hide()
-						//$("#detailed_search_skin").hide()
 					}
 			  	
 			  });
@@ -66,24 +48,23 @@
 			<img id="logo" src="./resources/img/project_db_logo.png">
 		</div>
 		<!-- 검색창 -->
-		
+	<form action="result.jsp" method="get">
 	    <div class="container-fluid h-50 w-75">
 	    
 			<div class="row justify-content-center align-items-center">			
 				<div class="col-1.5">
-					<select id="search_type" class="form-control" onchange="selectBoxChange(this.value);">
-					  	<option value="스킨" selected>스킨</option>
-					  	<option value="챔피언">챔피언</option>
-					  	<option value="유니버스">유니버스</option>
+					<select name="search_type" id="search_type" class="form-control" onchange="selectBoxChange(this.value);">
+					  	<option value="skin" selected>스킨</option>
+					  	<option value="champion">챔피언</option>
+					  	<option value="universe">유니버스</option>
 					</select>
 				</div>
-				<div class="col-10"><!-- 원래는 col-12임. 합이 12가 되도록 해야돼서 11로 변경 -->
-					<form id="searchWindow" action="/noxikaGG/search" method="GET" onclick="clickShowing('log')">							
+				<div class="col-10"><!-- 원래는 col-12임. 합이 12가 되도록 해야돼서 11로 변경 -->										
 						<div class="embed-submit-field">													
-							<input type="text" id="search_text" placeholder="찾을 내용을 검색하세요!" name="title">
+							<input type="text" name="search_text" id="search_text" placeholder="찾을 내용을 검색하세요!" name="title">
 							<button type="submit">검색!</button>
 						</div>
-					</form>
+					
 				</div>
 							
 			</div>
@@ -123,7 +104,7 @@
 						</div>
 						<div class="col">
 							등급
-							<select id="search_type" class="form-control">
+							<select id="skin_type" class="form-control">
 							  	<option value="전체" selected>==전체==</option>
 							  	<option value="Regular">Regular</option>
 							  	<option value="Epic">Epic</option>
@@ -232,6 +213,7 @@
 				</div>
 			</div>
 		</div>
+	</form>
 	</div>
 	
 		
