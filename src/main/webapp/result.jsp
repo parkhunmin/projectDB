@@ -41,10 +41,13 @@
 		System.out.println("search_text:"+search_text);
 		//상세검색이 없는 경우
 		if (search_type.equals("skin")){//스킨 체인지도 조인해서 띄울건지 생각해야함
-			String query="SELECT * "
-					+"FROM SKIN S "
-					+"WHERE SKIN_NAME LIKE ? " 
-					+"ORDER BY SKIN_NAME";
+			String query="SELECT S.Skin_name, Price, Launch_date, Chroma , Kind, Champ_name, Uni_name, Effects, Animations, AVG(R.SCORE) "
+					+"FROM SKIN S, SKIN_CHANGES SK, RATING R "
+					+"WHERE S.SKIN_NAME LIKE ? "
+					+"AND S.SKIN_NAME=SK.SKIN_NAME " 
+					+"AND S.SKIN_NAME=R.SKIN_NAME "
+					+"GROUP BY S.Skin_name, Price, Launch_date, Chroma , Kind, Champ_name, Uni_name, Effects, Animations "
+					+"ORDER BY S.SKIN_NAME";
 			pstmt=conn.prepareStatement(query);
 			pstmt.setString(1, "%"+search_text+"%");
 			rs=pstmt.executeQuery();
@@ -63,6 +66,9 @@
 				out.println("<td>"+rs.getString(5)+"</td>");
 				out.println("<td>"+rs.getString(6)+"</td>");
 				out.println("<td>"+rs.getString(7)+"</td>");
+				out.println("<td>"+rs.getString(8)+"</td>");
+				out.println("<td>"+rs.getString(9)+"</td>");
+				out.println("<td>"+rs.getString(10)+"</td>");
 				out.println("</tr>");				
 			}
 			out.println("</table>");
