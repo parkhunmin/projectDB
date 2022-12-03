@@ -107,7 +107,17 @@
 				//페이지 이동 실험적 시도임
 				//<td><a href="skin_page.jsp"><b>테스트 이동</b></a></td>		
 				//out.println("<td><a href=\"skin_page.jsp\"><b>"+rs.getString(1)+"</b></a></td>");
-				out.println("<td><a href=\"skin_page.jsp?skin_name="+rs.getString(1)+"\"<b>"+rs.getString(1)+"</b></a></td>");
+				out.println("<td><a href=\"skin_page.jsp?skin_name="+rs.getString(1)
+									+"&price="+rs.getInt(2)
+									+"&launch_date="+rs.getString(3)
+									+"&chroma="+rs.getString(4)
+									+"&kind="+rs.getString(5)
+									+"&champ_name="+rs.getString(6)
+									+"&uni_name="+rs.getString(7)
+									+"&effect="+rs.getString(8)
+									+"&animation="+rs.getString(9)
+									+"&score="+rs.getString(10)
+									+"\"<b>"+rs.getString(1)+"</b></a></td>");
 
 				out.println("<td>"+rs.getInt(2)+"</td>");
 				out.println("<td>"+rs.getString(3)+"</td>");
