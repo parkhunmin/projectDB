@@ -84,7 +84,7 @@
 					<div class="row" id="detailed_search_skin" style="display: none">
 						 <div class="col">
 						 	출시연도
-							<select name="release_date" id="release_year" class="form-control">
+							<select name="release_date" id="release_date" class="form-control">
 							  	<option value="all" selected>==전체==</option>
 							  	<option value="2022">2022</option>
 							  	<option value="2021">2021</option>
@@ -115,26 +115,26 @@
 						</div>
 						<div class="col">
 							크로마
-							<select mame="chroma" id="chroma" class="form-control">
+							<select name="chroma" id="chroma" class="form-control">
 							  	<option value="all" selected>==전체==</option>
-							  	<option value="TRUE">TRUE</option>
-							  	<option value="FALSE">FALSE</option>
+							  	<option value="True">TRUE</option>
+							  	<option value="False">FALSE</option>
 							</select>
 						</div>
 						<div class="col">
 							이펙트
 							<select name="effect" id="effect" class="form-control">
 							  	<option value="전체" selected>==전체==</option>
-							  	<option value="TRUE">TRUE</option>
-							  	<option value="FALSE">FALSE</option>
+							  	<option value="True">TRUE</option>
+							  	<option value="False">FALSE</option>
 							</select>
 						</div>
 						<div class="col">
 							애니메이션
 							<select name="animation" id="animation" class="form-control">
 							  	<option value="전체" selected>==전체==</option>
-							  	<option value="TRUE">TRUE</option>
-							  	<option value="FALSE">FALSE</option>
+							  	<option value="True">TRUE</option>
+							  	<option value="False">FALSE</option>
 							</select>
 						</div>
 						<div class="col">

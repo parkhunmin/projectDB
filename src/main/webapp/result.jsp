@@ -40,16 +40,56 @@
 		System.out.println("serach_type:"+search_type);
 		System.out.println("search_text:"+search_text);
 		//상세검색이 없는 경우
-		if (search_type.equals("skin")){//스킨 체인지도 조인해서 띄울건지 생각해야함
-			String query="SELECT S.Skin_name, Price, Launch_date, Chroma , Kind, Champ_name, Uni_name, Effects, Animations, AVG(R.SCORE) "
-					+"FROM SKIN S, SKIN_CHANGES SK, RATING R "
-					+"WHERE S.SKIN_NAME LIKE ? "
+		if (search_type.equals("skin")){
+			String query="SELECT S.Skin_name, s.Price, s.Launch_date, s.Chroma , s.Kind, s.Champ_name, s.Uni_name, sk.Effects, sk.Animations, AVG(R.SCORE) "
+					+"FROM SKIN S, SKIN_CHANGES SK, RATING R ";
+					
+			// release_date, skin_type, chroma, effect,animation,rating
+			String release_date=request.getParameter("release_date");
+			String skin_type=request.getParameter("skin_type");//등급
+			String chroma=request.getParameter("chroma");
+			String effect=request.getParameter("effect");
+			String animation=request.getParameter("animation");
+			String rating=request.getParameter("rating");//그냥 나중에 int로 변환해서 쓰자
+			/*
+			if (search_text!=null){//null이 아닐때
+				query=query+"WHERE S.SKIN_NAME LIKE '%"+search_text+"%' ";			
+			}*/
+			query=query+"WHERE S.SKIN_NAME LIKE '%"+search_text+"%' "
 					+"AND S.SKIN_NAME=SK.SKIN_NAME " 
-					+"AND S.SKIN_NAME=R.SKIN_NAME "
+					+"AND S.SKIN_NAME=R.SKIN_NAME ";
+			
+			if (!release_date.equals("all")){
+				query=query+"AND '"+release_date+"' = TO_CHAR(s.Launch_date, 'YYYY') ";//년도로만 비교
+			}
+			
+			if (!skin_type.equals("all")){
+				query=query+"AND s.kind="+"'"+skin_type+"' ";
+			}
+			
+			if (!chroma.equals("all")){
+				query=query+"AND s.chroma="+"'"+chroma+"' ";
+			}
+			
+			/*
+			if (!effect.equals("all")){ //문제-결과가 안뜨는 에러 발생
+				query=query+"AND sk.Effects="+"'"+effect+"' ";
+			}
+			
+			if (!rating.equals("all")){//문제-문자가 부적합합니다
+				query=query+"AND r.score="+rating+" ";
+			}
+			if (!animation.equals("all")){//문제-결과가 안뜨는 에러 발생
+				query=query+"AND sk.animations="+"'"+animation+"' ";
+			}
+			*/
+			//
+			query=query
 					+"GROUP BY S.Skin_name, Price, Launch_date, Chroma , Kind, Champ_name, Uni_name, Effects, Animations "
 					+"ORDER BY S.SKIN_NAME";
+			//
 			pstmt=conn.prepareStatement(query);
-			pstmt.setString(1, "%"+search_text+"%");
+			//pstmt.setString(1, "%"+search_text+"%");
 			rs=pstmt.executeQuery();
 			out.println("<table border=\"1\">");
 			ResultSetMetaData rsmd=rs.getMetaData();
@@ -84,9 +124,11 @@
 			//상세검색의 경우
 			String query="SELECT * "
 					+"FROM CHAMPION ";
+			/*
 			if (search_text!=null){//null이 아닐때
 				query=query+"WHERE NAME LIKE '%"+search_text+"%' ";			
-			}
+			}*/
+			query=query+"WHERE NAME LIKE '%"+search_text+"%' ";	
 			if (!release_year.equals("all")){
 				query=query+"AND '"+release_year+"' = TO_CHAR(RELEASE_DATE, 'YYYY') ";//년도로만 비교
 				//WHERE '20201010' < TO_CHAR(LAUNCH_DATE, , 'YYYYMMDD');			
