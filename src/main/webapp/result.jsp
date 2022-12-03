@@ -70,12 +70,31 @@
 			pstmt.close();
 		}
 		else if (search_type.equals("champion")){//가지고 있는 스킨도 띄워주면 좋을듯. 페이지 하나 만들어서..?
+			//상세검색이 아닌경우(all all all) release_year, class, region
+			String release_year=request.getParameter("release_year");
+			System.out.println(release_year);
+			String class_type=request.getParameter("class");
+			String region=request.getParameter("region");
+			//상세검색의 경우
 			String query="SELECT * "
-					+"FROM CHAMPION "
-					+"WHERE NAME LIKE ? " 
-					+"ORDER BY NAME";
+					+"FROM CHAMPION ";
+			if (search_text!=null){//null이 아닐때
+				query=query+"WHERE NAME LIKE '%"+search_text+"%' ";			
+			}
+			if (!release_year.equals("all")){
+				query=query+"AND '"+release_year+"' = TO_CHAR(RELEASE_DATE, 'YYYY') ";//년도로만 비교
+				//WHERE '20201010' < TO_CHAR(LAUNCH_DATE, , 'YYYYMMDD');			
+			}
+			if (!class_type.equals("all")){
+				query=query+"AND CLASS="+"'"+class_type+"' ";
+			}
+			if (!region.equals("all")){
+				query=query+"AND region="+"'"+region+"' ";
+			}
+			query=query+"ORDER BY NAME";
+			//
 			pstmt=conn.prepareStatement(query);
-			pstmt.setString(1, "%"+search_text+"%");
+			//pstmt.setString(1, "%"+search_text+"%");
 			rs=pstmt.executeQuery();
 			out.println("<table border=\"1\">");
 			ResultSetMetaData rsmd=rs.getMetaData();

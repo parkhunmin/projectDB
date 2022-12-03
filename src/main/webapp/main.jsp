@@ -84,8 +84,8 @@
 					<div class="row" id="detailed_search_skin" style="display: none">
 						 <div class="col">
 						 	출시연도
-							<select id="release_year" class="form-control">
-							  	<option value="전체" selected>==전체==</option>
+							<select name="release_date" id="release_year" class="form-control">
+							  	<option value="all" selected>==전체==</option>
 							  	<option value="2022">2022</option>
 							  	<option value="2021">2021</option>
 							  	<option value="2020">2020</option>
@@ -104,8 +104,8 @@
 						</div>
 						<div class="col">
 							등급
-							<select id="skin_type" class="form-control">
-							  	<option value="전체" selected>==전체==</option>
+							<select name="skin_type" id="skin_type" class="form-control">
+							  	<option value="all" selected>==전체==</option>
 							  	<option value="Regular">Regular</option>
 							  	<option value="Epic">Epic</option>
 							  	<option value="Epic">Epic</option>
@@ -115,15 +115,15 @@
 						</div>
 						<div class="col">
 							크로마
-							<select id="chroma" class="form-control">
-							  	<option value="전체" selected>==전체==</option>
+							<select mame="chroma" id="chroma" class="form-control">
+							  	<option value="all" selected>==전체==</option>
 							  	<option value="TRUE">TRUE</option>
 							  	<option value="FALSE">FALSE</option>
 							</select>
 						</div>
 						<div class="col">
 							이펙트
-							<select id="effect" class="form-control">
+							<select name="effect" id="effect" class="form-control">
 							  	<option value="전체" selected>==전체==</option>
 							  	<option value="TRUE">TRUE</option>
 							  	<option value="FALSE">FALSE</option>
@@ -131,7 +131,7 @@
 						</div>
 						<div class="col">
 							애니메이션
-							<select id="animation" class="form-control">
+							<select name="animation" id="animation" class="form-control">
 							  	<option value="전체" selected>==전체==</option>
 							  	<option value="TRUE">TRUE</option>
 							  	<option value="FALSE">FALSE</option>
@@ -139,7 +139,7 @@
 						</div>
 						<div class="col">
 							평점
-							<select id="rating" class="form-control">
+							<select name="rating" id="rating" class="form-control">
 							  	<option value="전체" selected>==전체==</option>
 							  	<option value="5">★★★★★</option>
 							  	<option value="4">★★★★</option>
@@ -153,8 +153,8 @@
 					
 					<div class="row" id="detailed_search_champion" style="display: none">
 						 <div class="col">출시연도						 
-							<select id="release_year" class="form-control">
-							  	<option value="전체" selected>==전체==</option>
+							<select name="release_year" id="release_year" class="form-control">
+							  	<option value="all" selected>==전체==</option>
 							  	<option value="2022">2022</option>
 							  	<option value="2021">2021</option>
 							  	<option value="2020">2020</option>
@@ -172,8 +172,8 @@
 							</select>
 						</div>
 						<div class="col">클래스
-							<select class="form-control">
-								<option value="전체" selected>==전체==</option>
+							<select name="class" id="class" class="form-control">
+								<option value="all" selected>==전체==</option>
 							  	<option value="Fighter">Fighter</option>
 							  	<option value="Slayer">Slayer</option>
 							  	<option value="Controller">Controller</option>
@@ -184,8 +184,8 @@
 							</select>
 						</div>
 						<div class="col">소속
-							<select class="form-control">
-								<option value="전체" selected>==전체==</option>
+							<select name="region" id="region" class="form-control">
+								<option value="all" selected>==전체==</option>
 								<option value="Bilgewater" >Bilgewater</option>
 							  	<option value="Demacia" >Demacia</option>
 							  	<option value="Freljord">Freljord</option>
