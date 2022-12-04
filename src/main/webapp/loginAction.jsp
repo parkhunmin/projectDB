@@ -25,10 +25,23 @@
 	<div class="container-fluid" style="height: 100vh;">
 		<div class="row justify-content-center align-items-center">					
 	<%
+	String id = null;
+	if (session.getAttribute("id") != null) {
+		id = (String)session.getAttribute("id");
+	}
+	if (id != null) {
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('이미 로그인 되어있습니다.')");
+		script.println("location.href = 'main.jsp'");
+		script.println("</script");
+	}
+	
 	userDAO userDAO = new userDAO();
 	int result = userDAO.login(user.getId(), user.getPassword());
 	if (result == 1)
 	{
+		session.setAttribute("id", user.getId());
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
 		script.println("location.href = 'main.jsp'");

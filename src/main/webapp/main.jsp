@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+<%@ page import="java.io.PrintWriter" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -27,13 +28,41 @@
 	</script>
 </head>
 <body>
+<%
+String id = null;
+if (session.getAttribute("id") != null) {
+	id = (String)session.getAttribute("id");
+}
+
+%>
 		<nav class="navbar sticky-top  navbar-dark bg-dark">
   		<a class="navbar-brand" href="main.jsp" >Project DB</a>
+  		
+  		<%
+  		if(id == null) {
+  		%>
+  		
   		<div style="display:inline-block">
    				<button type="button" class="btn btn-primary" onClick="location.href='login.jsp'"> 로그인</button>
    				<button type="button" class="btn btn-light" onClick="location.href='join.jsp'"> 회원가입</button>
    		</div>
 	</nav>
+  		
+  		<%
+  		} else {
+  			 
+  		%>
+  		<div style="display:inline-block">
+   				<button type="button" class="btn btn-light" onClick="location.href='user.jsp'">회원관리</button>
+   				<button type="button" class="btn btn-light" onClick="location.href='logoutAction.jsp'">로그아웃</button>
+   		</div>
+	</nav> 
+  		
+  		<%
+  			
+  			}
+  		%>
+  		
 	<div class="container-fluid" style="height: 100vh;">
 		<!-- logo -->
 		<div>

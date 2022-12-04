@@ -30,6 +30,19 @@
 		</div>
 		</form>
 		<%
+		String id = null;
+		if (session.getAttribute("id") != null) {
+			id = (String)session.getAttribute("id");
+		}
+		if (id != null) {
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('이미 로그인 되어있습니다.')");
+			script.println("location.href = 'main.jsp'");
+			script.println("</script");
+		}
+		
+		
 		if(user.getId() == null || user.getPassword() == null || user.getName() == null || user.getEmail() == null)
 		{
 			PrintWriter script = response.getWriter();
@@ -49,7 +62,8 @@
 				script.println("history.back()");
 				script.println("</script");
 			}
-			else {
+			else { //회원가입 성공
+				session.setAttribute("id", user.getId());
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
 				script.println("alert('회원가입이 완료되었습니다.')");
