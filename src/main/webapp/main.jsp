@@ -30,8 +30,8 @@
 		<nav class="navbar sticky-top  navbar-dark bg-dark">
   		<a class="navbar-brand" href="main.jsp" >Project DB</a>
   		<div style="display:inline-block">
-   				<button type="button" class="btn btn-primary"> 로그인</button>
-   				<button type="button" class="btn btn-light"> 회원가입</button>
+   				<button type="button" class="btn btn-primary" onClick="location.href='login.jsp'"> 로그인</button>
+   				<button type="button" class="btn btn-light" onClick="location.href='join.jsp'"> 회원가입</button>
    		</div>
 	</nav>
 	<div class="container-fluid" style="height: 100vh;">
