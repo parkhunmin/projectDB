@@ -33,12 +33,15 @@ public class Skin extends Start  {
 			break;
 			}
 		case 2: {
+			skin_released_date();
 			break;
 			}
 		case 3: {
+			skin_by_champion();
 			break;
 		}
 		case 4: {
+			skin_score();
 			break;
 		}
 		case 5: {
@@ -90,6 +93,149 @@ public class Skin extends Start  {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	void skin_released_date()//2
+	{
+		ResultSet rs = null;
+		Scanner sc = new Scanner(System.in);
+
+		String date;//말이 좀 이상해서 바꿔야할듯...
+		System.out.print("특정 날짜 이후로 출시된 스킨을 검색합니다. 날짜를 YYYYMMDD 형식으로 입력하세요 : ");
+		date = sc.nextLine();
+		
+		try {
+			// Q1: Complete your query.
+			String sql = "SELECT SKIN_NAME, PRICE, LAUNCH_DATE, KIND \r\n"
+					+ "FROM SKIN\r\n"
+					+ "WHERE ? <TO_CHAR(launch_date, 'YYYYMMDD')";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, date);
+			rs = ps.executeQuery();
+			System.out.println("<< query 1 result >>");
+			System.out.println("SKIN_NAME | PRICE | LAUNCH_DATE | KIND");
+			System.out.println("------------------------------");
+			while(rs.next()) {
+				// Fill out your code
+				String skin_name = rs.getString(1);
+				int price = rs.getInt(2);
+				String launch_date = rs.getString(3);//출력방식 수정해야할듯
+				String kind = rs.getString(4);
+				System.out.println(skin_name + " | " + price + " |" + launch_date + " |" + kind);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	void skin_by_champion()//3 챔피언별 스킨
+	{
+		ResultSet rs = null;
+		Scanner sc = new Scanner(System.in);
+
+		String name;
+		System.out.print("스킨 목록을 알고싶은 챔피언을 입력하세요 : ");
+		name = sc.nextLine();
+		
+		try {//타입3 쿼리라 멀티조인으로 구성해야함
+			// Q1: Complete your query.
+			String sql = "SELECT C.NAME, SKIN_NAME, PRICE, LAUNCH_DATE, KIND \r\n"
+					+ "FROM SKIN S, CHAMPION C\r\n"
+					+ "WHERE C.NAME = ? "
+					+ "AND C.NAME=S.CHAMP_NAME";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			ps.setString(1, name);
+			rs = ps.executeQuery();
+			System.out.println("<< query 1 result >>");
+			System.out.println("CHAMP_NAME | SKIN_NAME | PRICE | LAUNCH_DATE | KIND");
+			System.out.println("------------------------------");
+			while(rs.next()) {
+				// Fill out your code
+				String champ_name=rs.getString(1);
+				String skin_name = rs.getString(2);
+				int price = rs.getInt(3);
+				String launch_date = rs.getString(4);
+				String kind = rs.getString(5);
+				System.out.println(champ_name+"|"+skin_name + " | " + price + " |" + launch_date + " |" + kind);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	void skin_score()//4. 스킨평점
+	{
+		ResultSet rs = null;
+		Scanner sc = new Scanner(System.in);
+
+		String name;
+		System.out.print("스킨 평점을 알고싶은 챔피언을 입력하세요 : ");
+		name = sc.nextLine();
+		
+		int number;
+		System.out.print("알고 싶은 내용을 선택하세요 : ");
+		System.out.print("1) 모든 스킨의 평균 평점 2) 유저의 스킨 평점 목록  ");
+		number = sc.nextInt();
+		
+		if (number==1) {
+			try {//타입3 쿼리라 멀티조인으로 구성해야함. 아니면 아예 스킨 평점 띄워주게 새로 쿼리 짜는게?
+				// Q1: Complete your query.
+				String sql = "SELECT S.CHAMP_NAME, R.Skin_name, AVG(Score) \r\n"
+						+ "FROM SKIN S ,RATING R\r\n"
+						+ "WHERE S.CHAMP_NAME=? \r\n"
+						+ "AND S.Skin_name= R.Skin_name\r\n"
+						+ "GROUP BY R.Skin_name, S.CHAMP_NAME\r\n"
+						+ "ORDER BY AVG(Score) DESC";
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setString(1, name);
+				rs = ps.executeQuery();
+				System.out.println("<< query 1 result >>");
+				System.out.println("CHAMP_NAME | SKIN_NAME | SCORE");
+				System.out.println("------------------------------");
+				while(rs.next()) {
+					// Fill out your code
+					String champ_name = rs.getString(1);
+					String skin_name = rs.getString(2);
+					int score = rs.getInt(3);
+					System.out.println(champ_name + " | " + skin_name + " |" + score);
+				}
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		else if(number==2) {
+			try {//타입3 쿼리라 멀티조인으로 구성해야함. 아니면 아예 스킨 평점 띄워주게 새로 쿼리 짜는게?
+				// Q1: Complete your query.
+				String sql = "SELECT S.CHAMP_NAME, S.SKIN_NAME, R.SCORE \r\n"
+						+ "FROM SKIN S, RATING R \r\n"
+						+ "WHERE S.CHAMP_NAME  = ? "
+						+ "AND S.SKIN_NAME=R.SKIN_NAME";
+				PreparedStatement ps = conn.prepareStatement(sql);
+				ps.setString(1, name);
+				rs = ps.executeQuery();
+				System.out.println("<< query 1 result >>");
+				System.out.println("CHAMP_NAME | SKIN_NAME | SCORE");
+				System.out.println("------------------------------");
+				while(rs.next()) {
+					// Fill out your code
+					String champ_name = rs.getString(1);
+					String skin_name = rs.getString(2);
+					int score = rs.getInt(3);
+					System.out.println(champ_name + " | " + skin_name + " |" + score);
+				}
+				rs.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 	}
 	
 	void skin_comment() // 5번

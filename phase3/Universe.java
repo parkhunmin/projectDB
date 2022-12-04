@@ -18,9 +18,9 @@ public class Universe extends Start {
 		Scanner sc = new Scanner(System.in);
 
 		String name;
-		System.out.println("검색하고 싶은 세계관의 이름을 입력하세요.");
+		System.out.print("검색하고 싶은 세계관의 이름을 입력하세요 : ");
 		name = sc.next();
-		
+		 
 		try {
 			conn.setAutoCommit(false); // auto-commit disabled  
 			// Create a statement object
@@ -33,20 +33,28 @@ public class Universe extends Start {
 		//쿼리 시작
 		try {
 			// Q1: Complete your query.
-			String sql = "SELECT NAME, Lore \r\n"
+			String sql = "SELECT S.UNI_NAME, U.LORE, COUNT(S.Skin_name)\r\n"
+					+ "FROM SKIN_UNIVERSE U, SKIN S\r\n"
+					+ "WHERE U.NAME=?\r\n"
+					+ "AND S.UNI_NAME= U.Name\r\n"
+					+ "GROUP BY S.UNI_NAME, U.LORE";
+			/*
+			 String sql = "SELECT NAME, Lore \r\n"
 					+ "FROM SKIN_UNIVERSE\r\n"
-					+ "WHERE NAME=?";//					+ "WHERE NAME = ?";
+					+ "WHERE NAME=?";
+			 * */
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, name);
 			rs = ps.executeQuery();
 			System.out.println("<< query 1 result >>");
-			System.out.println("UNIVERSE_NAME | LORE");
+			System.out.println("UNIVERSE_NAME | LORE | SKIN_COUNT");
 			System.out.println("------------------------------");
 			while(rs.next()) {
 				// Fill out your code
 				String NAME = rs.getString(1);
 				String Lore = rs.getString(2);
-				System.out.println(NAME + " | " + Lore);
+				String Count = rs.getString(3);
+				System.out.println(NAME + " | " + Lore +" | "+Count);
 			}
 			rs.close();
 		} catch (SQLException e) {

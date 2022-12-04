@@ -18,7 +18,7 @@ public class Champion extends Start {
 		Scanner sc = new Scanner(System.in);
 
 		String name;
-		System.out.println("검색하고 싶은 챔피언의 이름을 입력하세요.");
+		System.out.print("검색하고 싶은 챔피언의 이름을 입력하세요 : ");
 		name = sc.next();
 		
 		try {
@@ -39,7 +39,7 @@ public class Champion extends Start {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setString(1, name);
 			rs = ps.executeQuery();
-			System.out.println("<< query 1 result >>");
+			
 			System.out.println("CHAMP_NAME | TITLE | CLASS");
 			System.out.println("------------------------------");
 			while(rs.next()) {

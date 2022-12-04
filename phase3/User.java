@@ -58,7 +58,6 @@ public class User extends Start{
 				ps.setString(1, ID);
 				rs = ps.executeQuery();
 				
-
 				if(rs.next()==false) {//검색 결과가 없을때
 					System.out.println("사용가능한 아이디입니다.");
 					break;
