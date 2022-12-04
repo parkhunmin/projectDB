@@ -145,7 +145,6 @@ if (session.getAttribute("id") != null) {
 									+"&uni_name="+rs.getString(7)
 									+"&effect="+rs.getString(8)
 									+"&animation="+rs.getString(9)
-									+"&score="+rs.getString(10)
 									+"\"<b>"+rs.getString(1)+"</b></a></td>");
 
 				out.println("<td>"+rs.getInt(2)+"</td>");

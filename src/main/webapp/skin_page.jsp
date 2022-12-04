@@ -9,6 +9,20 @@
 	<%@ page language="java" import="java.text.*, java.sql.*" %>
 	
 	<title>PROJECT DB 스킨페이지</title>
+	<% //디비 연결
+		String serverIP="localhost";
+		String strSID="orcl";
+		String portNum="1521";
+		String user="lol";
+		String pass="lol";
+		String url="jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
+				
+		Connection conn=null;
+		PreparedStatement pstmt;
+		ResultSet rs;
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		conn=DriverManager.getConnection(url,user,pass);
+	%>
 	<% 
 		//스킨 이름 받아와야함
 		//String skin_name="Dark Cosmic Jhin";
@@ -21,17 +35,59 @@
 		String uni_name=request.getParameter("uni_name");
 		String effect=request.getParameter("effect");
 		String animation=request.getParameter("animation");
-		String score=request.getParameter("score");
+		//String score=request.getParameter("score");
+		String score=null;
+	%>
+	<%//스코어 디비 연결 구현
+	 String query="SELECT round(avg(score),2) "
+				+"FROM RATING "
+				+"WHERE Skin_name =? ";
+		pstmt=conn.prepareStatement(query);
+		pstmt.setString(1, skin_name);
+		rs=pstmt.executeQuery();
+		ResultSetMetaData rsmd=rs.getMetaData();
+
+		while(rs.next()){
+			score=rs.getString(1);			
+		}
+
 	%>
 </head>
 <body>
-		<nav class="navbar sticky-top  navbar-dark bg-dark">
+<%
+String id = null;
+if (session.getAttribute("id") != null) {
+	id = (String)session.getAttribute("id");
+}
+%>
+<nav class="navbar sticky-top  navbar-dark bg-dark">
   		<a class="navbar-brand" href="main.jsp" >Project DB</a>
+  		
+  		<%
+  		if(id == null) {
+  		%>
+  		
   		<div style="display:inline-block">
-   				<button type="button" class="btn btn-primary" onclick="location='login.jsp'"> 로그인</button>
-   				<button type="button" class="btn btn-light" onclick="location='join.jsp'"> 회원가입</button>
+   				<button type="button" class="btn btn-primary" onClick="location.href='login.jsp'"> 로그인</button>
+   				<button type="button" class="btn btn-light" onClick="location.href='join.jsp'"> 회원가입</button>
    		</div>
 	</nav>
+  		
+  		<%
+  		} else {
+  			 
+  		%>
+  		<div style="display:inline-block">
+   				<button type="button" class="btn btn-light" onClick="location.href='user.jsp'">회원관리</button>
+   				<button type="button" class="btn btn-light" onClick="location.href='logoutAction.jsp'">로그아웃</button>
+   		</div>
+	</nav> 
+  		
+  		<%
+  			
+  			}
+  		%>
+
 	<br></br>
 	<br></br>
 	<div class="container-fluid" style="height: 100vh;">
@@ -95,35 +151,22 @@
 			<div>
 			<br></br>
 			<br></br>
-			<% //디비 연결
-				String serverIP="localhost";
-				String strSID="orcl";
-				String portNum="1521";
-				String user="PROJECTDB";
-				String pass="PROJECTDB";
-				String url="jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
-				
-				Connection conn=null;
-				PreparedStatement pstmt;
-				ResultSet rs;
-				Class.forName("oracle.jdbc.driver.OracleDriver");
-				conn=DriverManager.getConnection(url,user,pass);
-			%>
+
 			 <% 
 		    
-				    String query="SELECT USER_NAME, CONTENT, CREATED_DATE "
+				    String query2="SELECT USER_NAME, CONTENT, CREATED_DATE "
 							+"FROM COMMENTS "
 							+"WHERE Skin_name =? "
 							+" ORDER BY Created_Date DESC";
-					pstmt=conn.prepareStatement(query);
+					pstmt=conn.prepareStatement(query2);
 					pstmt.setString(1, skin_name);
 					rs=pstmt.executeQuery();
 					out.println("<table class=\"table\">");
-					ResultSetMetaData rsmd=rs.getMetaData();
-					int cnt=rsmd.getColumnCount();
+					ResultSetMetaData rsmd2=rs.getMetaData();
+					int cnt=rsmd2.getColumnCount();
 					
 					for(int i=1;i<=cnt;i++){
-						out.println("<th>"+rsmd.getColumnName(i)+"</th>");
+						out.println("<th>"+rsmd2.getColumnName(i)+"</th>");
 					}
 					
 					while(rs.next()){

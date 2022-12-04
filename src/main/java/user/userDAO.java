@@ -16,8 +16,8 @@ public class userDAO {
 			String serverIP = "localhost";
 			String strSID = "orcl";
 			String portNum = "1521";
-			String user = "lol";
-			String pass = "lol";
+			String user = "lol";//lol
+			String pass = "lol";//lol
 			String url = "jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
 	
 			Class.forName("oracle.jdbc.driver.OracleDriver");
