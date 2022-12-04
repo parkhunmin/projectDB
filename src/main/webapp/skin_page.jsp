@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<%@ page import="java.io.PrintWriter" %>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,9 +9,22 @@
 	<%@ page language="java" import="java.text.*, java.sql.*" %>
 	
 	<title>PROJECT DB 스킨페이지</title>
+	<% //디비 연결
+		String serverIP="localhost";
+		String strSID="orcl";
+		String portNum="1521";
+		String user="lol";
+		String pass="lol";
+		String url="jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
+				
+		Connection conn=null;
+		PreparedStatement pstmt;
+		ResultSet rs;
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		conn=DriverManager.getConnection(url,user,pass);
+	%>
 	<% 
 		//스킨 이름 받아와야함
-		//String skin_name="Dark Cosmic Jhin";
 		String skin_name=request.getParameter("skin_name");
 		String price=request.getParameter("price");
 		String launch_date=request.getParameter("launch_date");
@@ -22,7 +34,19 @@
 		String uni_name=request.getParameter("uni_name");
 		String effect=request.getParameter("effect");
 		String animation=request.getParameter("animation");
-		String score=request.getParameter("score");
+		String score=null;
+	%>
+	<%//스코어 디비 연결 구현
+	 String query="SELECT round(avg(score),2) "
+				+"FROM RATING "
+				+"WHERE Skin_name =? ";
+		pstmt=conn.prepareStatement(query);
+		pstmt.setString(1, skin_name);
+		rs=pstmt.executeQuery();
+		ResultSetMetaData rsmd=rs.getMetaData();
+		while(rs.next()){
+			score=rs.getString(1);			
+		}
 	%>
 </head>
 <body>
@@ -31,9 +55,8 @@ String id = null;
 if (session.getAttribute("id") != null) {
 	id = (String)session.getAttribute("id");
 }
-
 %>
-		<nav class="navbar sticky-top  navbar-dark bg-dark">
+<nav class="navbar sticky-top  navbar-dark bg-dark">
   		<a class="navbar-brand" href="main.jsp" >Project DB</a>
   		
   		<%
@@ -60,7 +83,7 @@ if (session.getAttribute("id") != null) {
   			
   			}
   		%>
-  		
+
 	<br></br>
 	<br></br>
 	<div class="container-fluid" style="height: 100vh;">
@@ -70,7 +93,14 @@ if (session.getAttribute("id") != null) {
 		 <div class="col" style=margin-right:100px>
 		 <br></br>
 		<% 
-			out.println("<img src=\"./resources/img/"+skin_name+".jpg\" width=\"700\"></img>");
+			String resource=skin_name;
+			if (resource.contains("K/DA")){
+				resource=resource.replace("K/DA","KDA");
+			}
+			if (resource.contains("PROJECT:")){
+				resource=resource.replace("PROJECT:","PROJECT");
+			}
+			out.println("<img src=\"./resources/img/"+resource+".jpg\" width=\"700\"></img>");
 			//옆에 테이블 추가
 			//아래에 코멘트 및 평점 출력
 			
@@ -124,35 +154,22 @@ if (session.getAttribute("id") != null) {
 			<div>
 			<br></br>
 			<br></br>
-			<% //디비 연결
-				String serverIP="localhost";
-				String strSID="orcl";
-				String portNum="1521";
-				String user="lol";
-				String pass="lol";
-				String url="jdbc:oracle:thin:@"+serverIP+":"+portNum+":"+strSID;
-				
-				Connection conn=null;
-				PreparedStatement pstmt;
-				ResultSet rs;
-				Class.forName("oracle.jdbc.driver.OracleDriver");
-				conn=DriverManager.getConnection(url,user,pass);
-			%>
+
 			 <% 
 		    
-				    String query="SELECT USER_NAME, CONTENT, CREATED_DATE "
+				    String query2="SELECT USER_NAME, CONTENT, CREATED_DATE "
 							+"FROM COMMENTS "
 							+"WHERE Skin_name =? "
 							+" ORDER BY Created_Date DESC";
-					pstmt=conn.prepareStatement(query);
+					pstmt=conn.prepareStatement(query2);
 					pstmt.setString(1, skin_name);
 					rs=pstmt.executeQuery();
 					out.println("<table class=\"table\">");
-					ResultSetMetaData rsmd=rs.getMetaData();
-					int cnt=rsmd.getColumnCount();
+					ResultSetMetaData rsmd2=rs.getMetaData();
+					int cnt=rsmd2.getColumnCount();
 					
 					for(int i=1;i<=cnt;i++){
-						out.println("<th>"+rsmd.getColumnName(i)+"</th>");
+						out.println("<th>"+rsmd2.getColumnName(i)+"</th>");
 					}
 					
 					while(rs.next()){
@@ -172,6 +189,26 @@ if (session.getAttribute("id") != null) {
 		<form>
 			<!-- 평점 -->
 			<!-- 코멘트 -->
+		<%
+  		if(id != null) {
+  		%>
+<div class="container">
+	<div class="form-group">
+		<form method="post" action="commentAction.jsp">
+			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+				<tr>
+					<td style="border-bottom:none;" valign="middle"><br><br><%= id %></td>
+					<td><input type="text" style="width:800px;height:100px;" class="form-control" placeholder="write here your comment." name = "commentText"></td>
+					<td><br><br><input type="submit" class="btn-primary pull" value="댓글 작성"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+</div>
+  		<%
+  		} 
+  		%>
+			
 			
 		</form>
 		</div>
