@@ -4,13 +4,8 @@
 <html>
 <head>
 	<meta charset="EUC-KR">
-	<style>
-	 #if{
-            width: 0px;
-            height: 0px;
-            border: 0px;
-        }
-	</style>
+	
+	
 	<link rel="stylesheet" href="resources/css/bootstrap.css?after">
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
 	<%@ page language="java" import="java.text.*, java.sql.*, java.time.*" %>
@@ -236,7 +231,7 @@ if (session.getAttribute("id") != null) {
 				</tr>
 			</table>
 		</form>
-		<iframe id="if" name="param"></iframe><!--  style='display:none;' -->
+		<iframe name="param" style='display:none;'></iframe><!--  style='display:none;' -->
 
 
 	</div>
