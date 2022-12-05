@@ -4,9 +4,16 @@
 <html>
 <head>
 	<meta charset="EUC-KR">
+	<style>
+	 #if{
+            width: 0px;
+            height: 0px;
+            border: 0px;
+        }
+	</style>
 	<link rel="stylesheet" href="resources/css/bootstrap.css?after">
 	<script src="http://code.jquery.com/jquery-latest.js"></script>
-	<%@ page language="java" import="java.text.*, java.sql.*" %>
+	<%@ page language="java" import="java.text.*, java.sql.*, java.time.*" %>
 	
 	<title>PROJECT DB 스킨페이지</title>
 	<% //디비 연결
@@ -25,7 +32,6 @@
 	%>
 	<% 
 		//스킨 이름 받아와야함
-		//String skin_name="Dark Cosmic Jhin";
 		String skin_name=request.getParameter("skin_name");
 		String price=request.getParameter("price");
 		String launch_date=request.getParameter("launch_date");
@@ -51,6 +57,19 @@
 			score=rs.getString(1);			
 		}
 
+		score=null;
+	%>
+	<%//스코어 디비 연결 구현
+	 String query2="SELECT round(avg(score),2) "
+				+"FROM RATING "
+				+"WHERE Skin_name =? ";
+		pstmt=conn.prepareStatement(query2);
+		pstmt.setString(1, skin_name);
+		rs=pstmt.executeQuery();
+		ResultSetMetaData rsmd2=rs.getMetaData();
+		while(rs.next()){
+			score=rs.getString(1);			
+		}
 	%>
 </head>
 <body>
@@ -68,8 +87,8 @@ if (session.getAttribute("id") != null) {
   		%>
   		
   		<div style="display:inline-block">
-   				<button type="button" class="btn btn-primary" onClick="location.href='login.jsp'"> 로그인</button>
-   				<button type="button" class="btn btn-light" onClick="location.href='join.jsp'"> 회원가입</button>
+   				<button type="button" class="btn btn-primary" onClick="location.href='login.jsp'">로그인</button>
+   				<button type="button" class="btn btn-light" onClick="location.href='join.jsp'">회원가입</button>
    		</div>
 	</nav>
   		
@@ -92,12 +111,17 @@ if (session.getAttribute("id") != null) {
 	<br></br>
 	<div class="container-fluid" style="height: 100vh;">
 		<div class="row">
-		<!-- 		<div style="display: inline-block">
-		 -->
 		 <div class="col" style=margin-right:100px>
 		 <br></br>
 		<% 
-			out.println("<img src=\"./resources/img/"+skin_name+".jpg\" width=\"700\"></img>");
+			String resource=skin_name;
+			if (resource.contains("K/DA")){
+				resource=resource.replace("K/DA","KDA");
+			}
+			else if (resource.contains("PROJECT:")){
+				resource=resource.replace("PROJECT:","PROJECT");
+			}
+			out.println("<img src=\"./resources/img/"+resource+".jpg\" width=\"700\"></img>");
 			//옆에 테이블 추가
 			//아래에 코멘트 및 평점 출력
 			
@@ -154,19 +178,19 @@ if (session.getAttribute("id") != null) {
 
 			 <% 
 		    
-				    String query2="SELECT USER_NAME, CONTENT, CREATED_DATE "
+				    String query3="SELECT USER_NAME, CONTENT, CREATED_DATE "
 							+"FROM COMMENTS "
 							+"WHERE Skin_name =? "
 							+" ORDER BY Created_Date DESC";
-					pstmt=conn.prepareStatement(query2);
+					pstmt=conn.prepareStatement(query3);
 					pstmt.setString(1, skin_name);
 					rs=pstmt.executeQuery();
 					out.println("<table class=\"table\">");
-					ResultSetMetaData rsmd2=rs.getMetaData();
-					int cnt=rsmd2.getColumnCount();
+					ResultSetMetaData rsmd3=rs.getMetaData();
+					int cnt=rsmd3.getColumnCount();
 					
 					for(int i=1;i<=cnt;i++){
-						out.println("<th>"+rsmd2.getColumnName(i)+"</th>");
+						out.println("<th>"+rsmd3.getColumnName(i)+"</th>");
 					}
 					
 					while(rs.next()){
@@ -183,12 +207,50 @@ if (session.getAttribute("id") != null) {
 			</div>
 	
 		<!-- 스킨이름만 받아오면 다 동적으로 구현이 가능함 -->		
-		<form>
+		
 			<!-- 평점 -->
 			<!-- 코멘트 -->
-			
+		<%
+  		if(id != null) {
+  		%>
+<div class="container">
+	<div class="form-group">
+		<!-- 
+		<form action="commentAction.jsp" method="get" target="param">
+			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+				<tr>
+					<td style="border-bottom:none;" valign="middle"><br><br><%= id %></td>
+					<td><input type="text" style="width:800px;height:100px;" class="form-control" placeholder="write here your comment." name = "commentText"></td>
+					<td><br><br><input type="submit" class="btn-primary pull" value="댓글 작성"></td>
+				</tr>
+			</table>
+		</form>-->
+		<!-- 함수 생성 -->
+		<form action="commentAction.jsp" method="post" target="param">
+			<input type="hidden" name="skin_name" value="<%=skin_name%>">
+			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
+				<tr>
+					<td style="border-bottom:none;" valign="middle"><br><br><%= id %></td>
+					<td><input type="text" style="width:800px;height:100px;" class="form-control" placeholder="write here your comment." name = "commentText"></td>
+					<td><br><br><input type="submit" onclick='submit_form()' class="btn-primary pull" value="댓글 작성"></td>
+				</tr>
+			</table>
 		</form>
+		<iframe id="if" name="param"></iframe><!--  style='display:none;' -->
+
+
+	</div>
+
+</div>
+  		<%
+  		} 
+  		%>
+			
+			
+	
 		</div>
 	</div>
 </body>
+<!-- iframe추가 폼 페이지 이동 방지-->
+
 </html>
