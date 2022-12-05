@@ -1,7 +1,7 @@
 <!-- =================== -->
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
-<%@ page language="java" import="java.text.*,java.sql.*,java.time.*"%>
+<%@ page language="java" import="java.text.*,java.sql.*,java.time.*, java.time.format.DateTimeFormatter"%>
 <%@ page import="java.io.PrintWriter" %>
 <html>
 <head>
@@ -43,6 +43,7 @@
 	//현재시간 구하기
 	LocalDate now = LocalDate.now();
 	String date=String.format("%1$tY-%1$tm-%1$td", now);
+	//String date=now.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 	//유저id구하기
 	 String query4="SELECT NAME "
 			+"FROM USERS "
@@ -76,6 +77,8 @@
 	rs.close();
 	pstmt.close();	
 	System.out.println("댓글 추가 완료");
+	
 %>
+
 </body>
 </html>

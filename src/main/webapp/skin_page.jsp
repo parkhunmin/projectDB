@@ -227,11 +227,11 @@ if (session.getAttribute("id") != null) {
 				<tr>
 					<td style="border-bottom:none;" valign="middle"><br><br><%= id %></td>
 					<td><input type="text" style="width:800px;height:100px;" class="form-control" placeholder="write here your comment." name = "commentText"></td>
-					<td><br><br><input type="submit" onclick='submit_form()' class="btn-primary pull" value="´ñ±Û ÀÛ¼º"></td>
+					<td><br><br><input type="submit" class="btn-primary pull" value="´ñ±Û ÀÛ¼º" onclick="document.location.reload();"></td>
 				</tr>
 			</table>
 		</form>
-		<iframe name="param" style='display:none;'></iframe><!--  style='display:none;' -->
+		<iframe id="if" name="param" style='display:none;'></iframe><!--  style='display:none;' -->
 
 
 	</div>
