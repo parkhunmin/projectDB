@@ -223,13 +223,13 @@ if (session.getAttribute("id") != null) {
 	<div class="form-group">
 		
 		<!-- 함수 생성 -->
-		<form action="commentAction.jsp" method="post" target="param">
+		<form action="commentAction.jsp" method="post" target="param" onsubmit="window.location.reload();">
 			<input type="hidden" name="skin_name" value="<%=skin_name%>">
 			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 				<tr>
 					<td style="border-bottom:none;" valign="middle"><br><br><%= id %></td>
-					<td><select name="rating" style="width:200px;" id="rating" class="form-control" style="position:relative;">
-							  	<option value="all" selected>평가</option>
+					<td><select name="rating" style="width:200px;" id="rating" class="form-control" style="position:relative;" required>
+							  	<option value="" selected>평가</option>
 							  	<option value="5">★★★★★</option>
 							  	<option value="4">★★★★</option>
 							  	<option value="3">★★★</option>
