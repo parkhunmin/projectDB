@@ -39,21 +39,8 @@
 		//String score=request.getParameter("score");
 		String score=null;
 	%>
-	<%//스코어 디비 연결 구현
-	 String query="SELECT round(avg(score),2) "
-				+"FROM RATING "
-				+"WHERE Skin_name =? ";
-		pstmt=conn.prepareStatement(query);
-		pstmt.setString(1, skin_name);
-		rs=pstmt.executeQuery();
-		ResultSetMetaData rsmd=rs.getMetaData();
-
-		while(rs.next()){
-			score=rs.getString(1);			
-		}
-
-		score=null;
-	%>
+	
+	
 	<%//스코어 디비 연결 구현
 	 String query2="SELECT round(avg(score),2) "
 				+"FROM RATING "

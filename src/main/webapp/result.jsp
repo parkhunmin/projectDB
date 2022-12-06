@@ -72,7 +72,7 @@ if (session.getAttribute("id") != null) {
 		System.out.println("search_text:"+search_text);
 		//상세검색이 없는 경우
 		if (search_type.equals("skin")){
-			String query="SELECT S.Skin_name, s.Price, s.Launch_date, s.Chroma , s.Kind, s.Champ_name, s.Uni_name, sk.Effects, sk.Animations, AVG(R.SCORE) "
+			String query="SELECT S.Skin_name, s.Price, s.Launch_date, s.Chroma , s.Kind, s.Champ_name, s.Uni_name, sk.Effects, sk.Animations, round(avg(r.score),2) SCORE "
 					+"FROM SKIN S, SKIN_CHANGES SK, RATING R ";
 					
 			// release_date, skin_type, chroma, effect,animation,rating
@@ -108,7 +108,12 @@ if (session.getAttribute("id") != null) {
 			}
 			
 			if (!rating.equals("all")){//문제-문자가 부적합합니다
-				query=query+"AND r.score="+rating+" ";
+				if (rating.equals('5')){
+					query=query+"AND r.score="+rating+" ";
+				}
+				else{
+					query=query+"AND r.score>="+rating+" and r.score<"+Integer.toString(Integer.parseInt(rating)+1)+" ";//query=query+"AND r.score="+rating+" ";
+				}
 			}
 			if (!animation.equals("all")){//문제-결과가 안뜨는 에러 발생
 				query=query+"AND sk.animations="+"'"+animation+"' ";
