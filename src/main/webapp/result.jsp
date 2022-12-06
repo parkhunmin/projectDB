@@ -81,6 +81,9 @@ if (session.getAttribute("id") != null) {
 			String chroma=request.getParameter("chroma");
 			String effect=request.getParameter("effect");
 			String animation=request.getParameter("animation");
+			//
+			String universe_name=request.getParameter("universe_name");
+			System.out.println("universe_name:"+universe_name);
 			String rating=request.getParameter("rating");//그냥 나중에 int로 변환해서 쓰자
 			/*
 			if (search_text!=null){//null이 아닐때
@@ -97,7 +100,11 @@ if (session.getAttribute("id") != null) {
 			if (!skin_type.equals("all")){
 				query=query+"AND s.kind="+"'"+skin_type+"' ";
 			}
-			
+			//
+			if (!universe_name.equals("all")){
+				query=query+"AND s.Uni_name="+"'"+universe_name+"' ";
+			}
+			//
 			if (!chroma.equals("all")){
 				query=query+"AND s.chroma="+"'"+chroma+"' ";
 			}
@@ -204,7 +211,11 @@ if (session.getAttribute("id") != null) {
 			}
 			while(rs.next()){
 				out.println("<tr>");
-				out.println("<td><b><font color='teal'>"+rs.getString(1)+"</font></b></td>");
+				//out.println("<td><b><font color='teal'>"+rs.getString(1)+"</font></b></td>");
+				out.println("<td><a href=\"result.jsp?search_type=skin&universe_name=all&search_text="+rs.getString(1)+"&release_date=all&skin_type=all&chroma=all&effect=all&animation=all&rating=all&release_year=all&class=all&region=all"
+									+"\"<b>"+rs.getString(1)+"</b></a></td>");
+				//out.println("<td onClick=Champion_skin_page()><b><font color='teal'>"+rs.getString(1)+"</font></b></td>");
+				//http://localhost:8080/PROJECT_DB_WEB/result.jsp?search_type=skin&search_text=&release_date=all&skin_type=all&chroma=all&effect=all&animation=all&rating=all&release_year=all&class=all&region=all
 				out.println("<td>"+rs.getString(2)+"</td>");
 				out.println("<td>"+rs.getString(3)+"</td>");
 				out.println("<td>"+rs.getString(4)+"</td>");
@@ -231,7 +242,8 @@ if (session.getAttribute("id") != null) {
 			}
 			while(rs.next()){
 				out.println("<tr>");
-				out.println("<td><b><font color='teal'>"+rs.getString(1)+"</font></b></td>");
+				out.println("<td><a href=\"result.jsp?search_type=skin&universe_name="+rs.getString(1)+"&search_text=&release_date=all&skin_type=all&chroma=all&effect=all&animation=all&rating=all&release_year=all&class=all&region=all"
+						+"\"<b>"+rs.getString(1)+"</b></a></td>");
 				out.println("<td>"+rs.getString(2)+"</td>");
 				out.println("</tr>");				
 			}

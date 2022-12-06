@@ -87,7 +87,8 @@ if (session.getAttribute("id") != null) {
 					</select>
 				</div>
 				<div class="col-10"><!-- 원래는 col-12임. 합이 12가 되도록 해야돼서 11로 변경 -->										
-						<div class="embed-submit-field">													
+						<div class="embed-submit-field">	
+							<input type="hidden" name="universe_name" value="all">		<!-- 추가 -->										
 							<input type="text" name="search_text" id="search_text" placeholder="찾을 내용을 검색하세요!" name="title">
 							<button type="submit">검색!</button>
 						</div>
