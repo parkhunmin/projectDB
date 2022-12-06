@@ -130,12 +130,26 @@ if (session.getAttribute("id") != null) {
 			</tr>
 			<tr>
 			<td>champ_name</td>
-			<td><%=champ_name%></td>
+			<!-- 
+			<td><%=champ_name%></td>-->
+			<%
+			out.println("<td><a href=\"result.jsp?search_type=skin&universe_name=all&search_text="+champ_name+"&release_date=all&skin_type=all&chroma=all&effect=all&animation=all&rating=all&release_year=all&class=all&region=all"
+					+"\"</a>"+champ_name+"</td>");
+			%>
 			</tr>
+			
 			<tr>
 			<td>uni_name</td>
+			<!-- 
+			<td>uni_name</td>
 			<td><%=uni_name%></td>
+			-->
+			<%
+			out.println("<td><a href=\"result.jsp?search_type=skin&universe_name="+uni_name+"&search_text=&release_date=all&skin_type=all&chroma=all&effect=all&animation=all&rating=all&release_year=all&class=all&region=all"
+					+"\"</a>"+uni_name+"</td>");
+			%>
 			</tr>
+			
 			<tr>
 			<td>effect</td>
 			<td><%=effect%></td>
