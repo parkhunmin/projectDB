@@ -26,7 +26,6 @@
 		<br><br><br><br><br>
 		<h2>회원가입이 완료되었습니다</h2> <br>
 		<div style=" text-align: center;">
-		<button type="button" class="btn btn-primary" onClick="location.href='login.jsp'">로그인</button>
 		</div>
 		</form>
 		<%

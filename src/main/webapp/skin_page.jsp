@@ -196,10 +196,20 @@ if (session.getAttribute("id") != null) {
 						out.println("</tr>");				
 					}
 					out.println("</table>");
-					rs.close();
-					pstmt.close();
 			 %>
 			</div>
+			
+			<%
+			String sql = "SELECT user_name "
+					 + "FROM COMMENTS "
+					+ "WHERE id = ? AND skin_name = ?";
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.setString(2, skin_name);
+			rs=pstmt.executeQuery();
+			boolean result = rs.next();
+			
+		%>
 	
 		<!-- 스킨이름만 받아오면 다 동적으로 구현이 가능함 -->		
 		
@@ -207,26 +217,27 @@ if (session.getAttribute("id") != null) {
 			<!-- 코멘트 -->
 		<%
   		if(id != null) {
+  			if (result == false) {
   		%>
 <div class="container">
 	<div class="form-group">
-		<!-- 
-		<form action="commentAction.jsp" method="get" target="param">
-			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
-				<tr>
-					<td style="border-bottom:none;" valign="middle"><br><br><%= id %></td>
-					<td><input type="text" style="width:800px;height:100px;" class="form-control" placeholder="write here your comment." name = "commentText"></td>
-					<td><br><br><input type="submit" class="btn-primary pull" value="댓글 작성"></td>
-				</tr>
-			</table>
-		</form>-->
+		
 		<!-- 함수 생성 -->
 		<form action="commentAction.jsp" method="post" target="param">
 			<input type="hidden" name="skin_name" value="<%=skin_name%>">
 			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
 				<tr>
 					<td style="border-bottom:none;" valign="middle"><br><br><%= id %></td>
-					<td><input type="text" style="width:800px;height:100px;" class="form-control" placeholder="write here your comment." name = "commentText"></td>
+					<td><select name="rating" style="width:200px;" id="rating" class="form-control" style="position:relative;">
+							  	<option value="all" selected>평가</option>
+							  	<option value="5">★★★★★</option>
+							  	<option value="4">★★★★</option>
+							  	<option value="3">★★★</option>
+							  	<option value="2">★★</option>
+							  	<option value="1">★</option>
+							</select>
+					<input type="text" style="width:800px;height:100px;" class="form-control" placeholder="write here your comment." name = "commentText">
+					</td>
 					<td><br><br><input type="submit" class="btn-primary pull" value="댓글 작성" onclick="document.location.reload();"></td>
 				</tr>
 			</table>
@@ -238,7 +249,10 @@ if (session.getAttribute("id") != null) {
 
 </div>
   		<%
+  			}
   		} 
+		rs.close();
+		pstmt.close();
   		%>
 			
 			

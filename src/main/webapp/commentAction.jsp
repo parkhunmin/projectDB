@@ -13,6 +13,7 @@
 	String skin_name=request.getParameter("skin_name");//이거 안 받아와짐
 	//필요한 정보: 이름, 스킨이름, 코멘트 (평점은 어떡함?)
 	String content=request.getParameter("commentText");
+	String rating=request.getParameter("rating");
 	%>
 </head>
 <body>
@@ -73,10 +74,22 @@
 	pstmt.setString(5, skin_name);//여기서 에러 발생
 	
 	rs=pstmt.executeQuery();
+	System.out.println("댓글 추가 완료");
+	String query3 = "INSERT INTO RATING VALUES(?, ?, ?)";
+	
+	pstmt = conn.prepareStatement(query3);//이 부분 에러만 해결하면 끝남. 중간에 회원가입 때려치는 버튼 만들어야될 것 같긴함
+	//어떤 값이 널인데
+	pstmt.setString(1, id); //이게 문제임
+	pstmt.setString(2, skin_name); //로그인한 유저의 정보를 들고있어야함...
+	pstmt.setInt(3, Integer.parseInt(rating));
+
+	int r = pstmt.executeUpdate();
+	conn.commit();
+	System.out.println("평점이 등록되었습니다.");
 	
 	rs.close();
 	pstmt.close();	
-	System.out.println("댓글 추가 완료");
+	
 	
 %>
 
